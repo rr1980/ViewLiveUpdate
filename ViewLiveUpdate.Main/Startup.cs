@@ -9,6 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using ViewLiveUpdate.WebSocketManager;
 using ViewLiveUpdate.WebSocketManager.Interfaces;
+using ViewLiveUpdate.ViewDatas.Core;
+using ViewLiveUpdate.Services;
 
 namespace ViewLiveUpdate.Main
 {
@@ -29,6 +31,9 @@ namespace ViewLiveUpdate.Main
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<ViewDataBuilderService>();
+            services.AddSingleton<HomeService>();
+            
             // Add framework services.
             services.AddMvc();
             services.AddWebSocketManager();
