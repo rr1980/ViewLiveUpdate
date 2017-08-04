@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using ViewLiveUpdate.WebSocketManager;
+using ViewLiveUpdate.WebSocketManager.Interfaces;
 
 namespace ViewLiveUpdate.Main
 {
@@ -29,13 +31,16 @@ namespace ViewLiveUpdate.Main
         {
             // Add framework services.
             services.AddMvc();
+            services.AddWebSocketManager();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IServiceProvider serviceProvider)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+
+            app.UseWebSockets();
 
             if (env.IsDevelopment())
             {
@@ -55,6 +60,8 @@ namespace ViewLiveUpdate.Main
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            app.MapWebSocketManager("/notifications", app.ApplicationServices.GetService<IWebSocketHandler>());
         }
     }
 }
