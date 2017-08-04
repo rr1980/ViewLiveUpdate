@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ViewLiveUpdate.Entities\ViewLiveUpdate.Entities.csproj" />
+    <ProjectReference Include="..\ViewLiveUpdate.Interfaces\ViewLiveUpdate.Interfaces.csproj" />
+    <ProjectReference Include="..\ViewLiveUpdate.ViewDatas\ViewLiveUpdate.ViewDatas.csproj" />
+  </ItemGroup>
+
+</Project>
